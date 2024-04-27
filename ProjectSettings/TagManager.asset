@@ -8,6 +8,8 @@ TagManager:
   - floor
   - roof
   - Bullet
+  - WP
+  - NPC
   layers:
   - Default
   - TransparentFX

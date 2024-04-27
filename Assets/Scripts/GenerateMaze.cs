@@ -11,6 +11,8 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _roofPrefab;
     [SerializeField] private GameObject _verticalWallPrefab, _horizontalWallPrefab;
     [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _npc;
+    [SerializeField] private bool _showRoof = true;
     private GameObject _wallParent, _floorParent, _roofParent;
     private NavMeshSurface _navMeshSurface;
     private const int N = 1, S = 2, E = 4, W = 8;
@@ -25,18 +27,34 @@ public class GenerateMaze : MonoBehaviour
         CarveGrid();
         DrawFloorAndRoof();
         SpawnPlayer();
+        SpawnEnemies();
+
+        _roofParent.SetActive(_showRoof);
     }
 
-    private void SpawnPlayer()
+    private void SpawnEnemies()
     {
-        var go = Instantiate(_player);
+        for (int i = 0; i < 5; i++)
+        {
+            SpawnRandomLocation(_npc);
+        }
+    }
+
+    private void SpawnRandomLocation(GameObject _prefab)
+    {
+        var go = Instantiate(_prefab);
 
         int x = Random.Range(0, _size);
         int z = Random.Range(0, _size);
 
-        var tile = _floor[x,z].transform.position;
+        var tile = _floor[x, z].transform.position;
 
-        go.transform.position = new Vector3(tile.x, tile.y+2, tile.z);
+        go.transform.position = new Vector3(tile.x, tile.y + 2, tile.z);
+    }
+
+    private void SpawnPlayer()
+    {
+        SpawnRandomLocation(_player);
     }
 
     private void Innit()

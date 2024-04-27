@@ -1,14 +1,9 @@
 <quest name="Free the Villagers from the Tyran">
  <stage id="0" name="Maze" description="This is a training camp where you will get to master your skills before you start your quest.">
-    <requirements>
-      
-    </requirements>
-
     <results>
-      <result action="Talk to" target="Diana" xp="10"/>
-      <result action="Acquire a" target="Apple" xp="10"/>
-      <result action="Destroy one" target="NPC_Guard" xp="10"/>
-      <result action="Enter place called" target="yellow_house" xp="10"/>
+      <result action="Talk to" target="Kevin" xp="5" type="4"/>
+      <result action="Kill 5" target="Ghosts" xp="20" type="1"/>
+      <result action="Collect 5" target="Gold" xp="20" type="2"/>
     </results>
   </stage>
  
