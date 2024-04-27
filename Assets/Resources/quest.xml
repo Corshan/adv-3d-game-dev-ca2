@@ -1,5 +1,5 @@
 <quest name="Free the Villagers from the Tyran">
- <stage id="0" name="Training Camp" description="This is a training camp where you will get to master your skills before you start your quest." startingPointForPlayer="-25,-1,-134">
+ <stage id="0" name="Maze" description="This is a training camp where you will get to master your skills before you start your quest.">
     <requirements>
       
     </requirements>

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GenerateMaze : MonoBehaviour
@@ -7,28 +8,26 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField][Range(3, 100)] private int _size = 5;
     [SerializeField][Range(5, 10)] private int _wallSize = 5;
     [SerializeField][Range(0, 10)] private int _weight = 5;
-    [SerializeField] private GameObject _ground;
-    [SerializeField] private GameObject _roof;
+    [SerializeField] private GameObject _groundPrefab;
+    [SerializeField] private GameObject _roofPrefab;
     [SerializeField] private GameObject _verticalWallPrefab, _horizontalWallPrefab;
+    [SerializeField] private GameObject _wallParent, _floorParent, _roofParent;
 
     private const int N = 1, S = 2, E = 4, W = 8;
     private int[,] _grid;
-    private GameObject[,] _verticalWalls, _horizontalWalls;
+    private GameObject[,] _verticalWalls, _horizontalWalls, _floor, _roof;
     // Start is called before the first frame update
     void Start()
     {
         _verticalWalls = new GameObject[_size + 1, _size + 1];
         _horizontalWalls = new GameObject[_size + 1, _size + 1];
+        _floor = new GameObject[_size + 1, _size + 1];
+        _roof = new GameObject[_size + 1, _size + 1];
+
         GenerateGrid();
         DrawGrid();
         CarveGrid();
-        DrawFloor();
-
-        // _ground.transform.localScale = new Vector3(_size * _wallSize, 1, _size * _wallSize);
-        // _ground.transform.position = new Vector3(-_size*0.5f, 0, -_size*0.5f);
-
-        _roof.transform.localScale = new Vector3(_size * 5, 1, _size * 5);
-        _roof.transform.position = new Vector3(-_size * 0.5f, _verticalWallPrefab.transform.localScale.y, -_size * 0.5f);
+        DrawFloorAndRoof();
     }
 
     private void CarveGrid()
@@ -74,7 +73,7 @@ public class GenerateMaze : MonoBehaviour
                     go.SetActive(true);
                     go.name = "v" + i + j;
                     go.tag = "wall";
-                    go.transform.parent = transform;
+                    go.transform.parent = _wallParent.transform;
                     _verticalWalls[j, i] = go;
                 }
 
@@ -89,7 +88,7 @@ public class GenerateMaze : MonoBehaviour
                     go.SetActive(true);
                     go.name = "h" + i + j;
                     go.tag = "wall";
-                    go.transform.parent = transform;
+                    go.transform.parent = _wallParent.transform;
                     _horizontalWalls[j, i] = go;
                 }
             }
@@ -125,11 +124,36 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
-    private void DrawFloor()
+    private void DrawFloorAndRoof()
     {
-        for (int x = 0; x < _size; _size++)
+        for (int x = 0; x < _size; x++)
         {
-            Instantiate(_ground, new Vector3(x*_wallSize, 0, 0), Quaternion.identity);
+            float hWallSize = _horizontalWallPrefab.transform.localScale.x;
+            float wallHeight = _horizontalWallPrefab.transform.localScale.y;
+
+            float xOffset = -(_size * hWallSize) / 2;
+            float zOffset = -(_size * hWallSize) / 2;
+
+            for (int y = 0; y < _size; y++)
+            {
+                var floor = Instantiate(_groundPrefab, new Vector3(x * _wallSize + xOffset, 0, y * _wallSize + zOffset), Quaternion.identity);
+                var roof = Instantiate(_roofPrefab, new Vector3(x * _wallSize + xOffset, wallHeight, y * _wallSize + zOffset), Quaternion.identity);
+
+                floor.SetActive(true);
+                floor.name = "f" + x + y;
+                floor.tag = "floor";
+                floor.transform.parent = _floorParent.transform;
+
+                roof.SetActive(true);
+                roof.name = "r" + x + y;
+                roof.tag = "roof";
+                roof.transform.parent = _roofParent.transform;
+
+                _floor[x, y] = floor;
+                _roof[x, y] = roof;
+            }
         }
+       
+       _floorParent.GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 }

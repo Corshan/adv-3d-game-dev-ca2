@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - wall
+  - floor
+  - roof
+  - Bullet
   layers:
   - Default
   - TransparentFX
