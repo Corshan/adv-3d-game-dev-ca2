@@ -7,27 +7,59 @@ public class GenerateMaze : MonoBehaviour
 {
     [SerializeField][Range(3, 100)] private int _size = 5;
     [SerializeField][Range(5, 10)] private int _wallSize = 5;
-    [SerializeField][Range(0, 10)] private int _weight = 5;
     [SerializeField] private GameObject _groundPrefab;
     [SerializeField] private GameObject _roofPrefab;
     [SerializeField] private GameObject _verticalWallPrefab, _horizontalWallPrefab;
-    [SerializeField] private GameObject _wallParent, _floorParent, _roofParent;
-
+    [SerializeField] private GameObject _player;
+    private GameObject _wallParent, _floorParent, _roofParent;
+    private NavMeshSurface _navMeshSurface;
     private const int N = 1, S = 2, E = 4, W = 8;
     private int[,] _grid;
     private GameObject[,] _verticalWalls, _horizontalWalls, _floor, _roof;
     // Start is called before the first frame update
     void Start()
     {
+        Innit();
+        GenerateGrid();
+        DrawGrid();
+        CarveGrid();
+        DrawFloorAndRoof();
+        SpawnPlayer();
+    }
+
+    private void SpawnPlayer()
+    {
+        var go = Instantiate(_player);
+
+        int x = Random.Range(0, _size);
+        int z = Random.Range(0, _size);
+
+        var tile = _floor[x,z].transform.position;
+
+        go.transform.position = new Vector3(tile.x, tile.y+2, tile.z);
+    }
+
+    private void Innit()
+    {
+        _verticalWallPrefab.transform.localScale = new Vector3(0.1f, 4f, _wallSize);
+        _horizontalWallPrefab.transform.localScale = new Vector3(_wallSize, 4f, 0.1f);
+
+        _groundPrefab.transform.localScale = new Vector3(_wallSize, 0.1f, _wallSize);
+        _roofPrefab.transform.localScale = new Vector3(_wallSize, 0.1f, _wallSize);
+
         _verticalWalls = new GameObject[_size + 1, _size + 1];
         _horizontalWalls = new GameObject[_size + 1, _size + 1];
         _floor = new GameObject[_size + 1, _size + 1];
         _roof = new GameObject[_size + 1, _size + 1];
 
-        GenerateGrid();
-        DrawGrid();
-        CarveGrid();
-        DrawFloorAndRoof();
+        _wallParent = new GameObject("Walls");
+        _wallParent.transform.parent = transform;
+        _floorParent = new GameObject("floor");
+        _floorParent.transform.parent = transform;
+        _roofParent = new GameObject("roof");
+        _roofParent.transform.parent = transform;
+
+        _navMeshSurface = _floorParent.AddComponent<NavMeshSurface>();
     }
 
     private void CarveGrid()
@@ -65,11 +97,12 @@ public class GenerateMaze : MonoBehaviour
                 if (i < _size)
                 {
                     float vWallSize = _verticalWallPrefab.transform.localScale.z;
+                    float vWallheight = _verticalWallPrefab.transform.localScale.y;
 
                     float xOffset = -(_size * vWallSize) / 2;
                     float zOffset = -(_size * vWallSize) / 2;
 
-                    var go = Instantiate(_verticalWallPrefab, new Vector3(-vWallSize / 2 + j * _wallSize + xOffset, _wallSize / 2, i * vWallSize + zOffset), Quaternion.identity);
+                    var go = Instantiate(_verticalWallPrefab, new Vector3(-vWallSize / 2 + j * _wallSize + xOffset, vWallheight / 2, i * vWallSize + zOffset), Quaternion.identity);
                     go.SetActive(true);
                     go.name = "v" + i + j;
                     go.tag = "wall";
@@ -80,11 +113,12 @@ public class GenerateMaze : MonoBehaviour
                 if (j < _size)
                 {
                     float hWallSize = _horizontalWallPrefab.transform.localScale.x;
+                    float hWallheight = _verticalWallPrefab.transform.localScale.y;
 
                     float xOffset = -(_size * hWallSize) / 2;
                     float zOffset = -(_size * hWallSize) / 2;
 
-                    var go = Instantiate(_horizontalWallPrefab, new Vector3(j * hWallSize + xOffset, _wallSize / 2, -(hWallSize / 2) + i * hWallSize + zOffset), Quaternion.identity);
+                    var go = Instantiate(_horizontalWallPrefab, new Vector3(j * hWallSize + xOffset, hWallheight / 2, -(hWallSize / 2) + i * hWallSize + zOffset), Quaternion.identity);
                     go.SetActive(true);
                     go.name = "h" + i + j;
                     go.tag = "wall";
@@ -153,7 +187,7 @@ public class GenerateMaze : MonoBehaviour
                 _roof[x, y] = roof;
             }
         }
-       
-       _floorParent.GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        _navMeshSurface.BuildNavMesh();
     }
 }
