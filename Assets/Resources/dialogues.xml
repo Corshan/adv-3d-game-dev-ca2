@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogues>
+	<character name="Kevin">
+		<dialogue id="00" content="Hey there! Are you as lost as I am in this maze?">
+			<choice content="Yeah, I have no idea how I ended up here." target="1" />
+			<choice content="Actually, I think I might know how I got here." target="2" />
+			<choice content="Nope, Bye" target="-1" />
+		</dialogue>
+		<dialogue id="01" content="Same here. It's like we just appeared out of thin air. I've been wandering around for what feels like hours, but I can't find a way out.">
+			<choice content="I was exploring some ancient ruins nearby, and suddenly I found myself here." target="3" />
+			<choice content="I followed a strange light, and it led me into this maze." target="2" />
+			<choice content="This seems like a you problem" target="-1" />
+		</dialogue>
+		<dialogue id="02" content="Really? Please, do share. Maybe it'll help us find a way out of this mess.">
+			<choice content="Maybe it can" target="-1" />
+			<choice content="I don't think it can" target="-1" />
+			<choice content="For a Price" target="-1" />
+		</dialogue>
+	</character>
+	<character name="Mary">
+
+	</character>
+</dialogues>

@@ -10,7 +10,7 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _groundPrefab;
     [SerializeField] private GameObject _roofPrefab;
     [SerializeField] private GameObject _verticalWallPrefab, _horizontalWallPrefab;
-    [SerializeField] private GameObject _player, _npc, _item;
+    [SerializeField] private GameObject _player, _npc, _item, _kevin;
     [SerializeField] private bool _showRoof = true;
     private GameObject _wallParent, _floorParent, _roofParent;
     private NavMeshSurface _navMeshSurface;
@@ -28,8 +28,15 @@ public class GenerateMaze : MonoBehaviour
         SpawnPlayer();
         SpawnEnemies();
         SpawnItems();
+        SpawnKevin();
 
         _roofParent.SetActive(_showRoof);
+    }
+
+    private void SpawnKevin()
+    {
+        SpawnRandomLocation(_kevin, 0);
+        new GameObject("KevinTemp");
     }
 
     private void SpawnItems()

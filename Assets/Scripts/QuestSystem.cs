@@ -20,7 +20,7 @@ public class QuestSystem : MonoBehaviour
 
         foreach (var q in _quests)
         {
-            print($"{q.Action} {q.Target} {q.XP} {q.IsComplete} {q.Type}");
+            // print($"{q.Action} {q.Target} {q.XP} {q.IsComplete} {q.Type}");
         }
     }
 
@@ -35,7 +35,14 @@ public class QuestSystem : MonoBehaviour
     {
         var items = GameObject.FindGameObjectsWithTag("Collect").ToList();
 
-        if(items.Count <= 0) quest.CompleteQuest();
+        if (items.Count <= 0) quest.CompleteQuest();
+    }
+
+    private void TalkTo(Quest quest)
+    {
+        var npc = GameObject.Find($"{quest.Target}Temp");
+
+        if(npc == null) quest.CompleteQuest();
     }
 
     private void Update()
@@ -51,7 +58,7 @@ public class QuestSystem : MonoBehaviour
                     CollectQuest(quest);
                     break;
                 case Quest.QuestType.TALK_TO:
-
+                    TalkTo(quest);
                     break;
                 case Quest.QuestType.GO_TO:
 

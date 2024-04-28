@@ -10,6 +10,8 @@ public class QuestSystemUI : MonoBehaviour
 
     void Update()
     {
+        if(_questSystem == null) return;
+        
         string str = "";
         foreach (var quest in _questSystem.Quests)
         {
