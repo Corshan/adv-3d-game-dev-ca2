@@ -426,6 +426,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 115133035230453992, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1030280399857895695, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -514,8 +518,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6223381904552956075, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 115133035230453992, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
+    - {fileID: 6223381904552956075, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a79c154956136d46a47fcbe103cfad0, type: 3}
