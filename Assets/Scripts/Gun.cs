@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     [SerializeField][Range(1, 100)] private int _maxAmmo = 10;
     [SerializeField][Range(1, 10)] private int _ammoAmount = 5;
     [SerializeField] private TextMeshProUGUI _ammoText;
+    [SerializeField] private bool _infiniteAmmo = false;
     private int _counter;
     private int _currentAmmo;
     public int CurrentAmmo => _currentAmmo;
@@ -29,7 +30,7 @@ public class Gun : MonoBehaviour
 
     public void Fire()
     {
-        if (_currentAmmo <= 0) return;
+        if (_currentAmmo <= 0 && !_infiniteAmmo) return;
 
         GameObject go = Instantiate(_bulletPrefab, _guntip.position, _guntip.rotation);
 
@@ -49,12 +50,12 @@ public class Gun : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ammo") && _currentAmmo < _maxAmmo)
-        {
-            _currentAmmo = ((_currentAmmo + _ammoAmount) < _maxAmmo) ? _currentAmmo + _ammoAmount : _maxAmmo;
+        // if (other.CompareTag("Ammo") && _currentAmmo < _maxAmmo)
+        // {
+        //     _currentAmmo = ((_currentAmmo + _ammoAmount) < _maxAmmo) ? _currentAmmo + _ammoAmount : _maxAmmo;
 
-            Destroy(other.gameObject);
-        }
+        //     Destroy(other.gameObject);
+        // }
 
     }
 

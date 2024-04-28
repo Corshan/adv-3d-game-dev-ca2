@@ -31,6 +31,13 @@ public class QuestSystem : MonoBehaviour
         if (npcs.Count <= 0) quest.CompleteQuest();
     }
 
+    private void CollectQuest(Quest quest)
+    {
+        var items = GameObject.FindGameObjectsWithTag("Collect").ToList();
+
+        if(items.Count <= 0) quest.CompleteQuest();
+    }
+
     private void Update()
     {
         foreach (var quest in _quests)
@@ -41,7 +48,7 @@ public class QuestSystem : MonoBehaviour
                     KillQuest(quest);
                     break;
                 case Quest.QuestType.COLLECT:
-
+                    CollectQuest(quest);
                     break;
                 case Quest.QuestType.TALK_TO:
 

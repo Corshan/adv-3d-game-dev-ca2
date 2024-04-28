@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 1695211014}
   - component: {fileID: 1695211013}
   - component: {fileID: 1695211012}
+  - component: {fileID: 1695211016}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -566,6 +567,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1695211016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695211011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1af3dce458e094c83878423febaf11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 744279543}
 --- !u!1 &1871966947
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +827,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3003741967654235991, guid: 13d235b0dd8a02d42b4e9afdda982c87, type: 3}
     - target: {fileID: 1469965352952757228, guid: aa9294a946acc7e4eb7ef8ab7fbf7f32, type: 3}
+      propertyPath: _item
+      value: 
+      objectReference: {fileID: 9172216662157318654, guid: 38499df04d0dda144b5c1330de36bcbc, type: 3}
+    - target: {fileID: 1469965352952757228, guid: aa9294a946acc7e4eb7ef8ab7fbf7f32, type: 3}
       propertyPath: _size
       value: 10
       objectReference: {fileID: 0}
@@ -822,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 7477374381360871297, guid: 4a2bfe58361d7d7478b2b403368ec4f9, type: 3}
     - target: {fileID: 1469965352952757228, guid: aa9294a946acc7e4eb7ef8ab7fbf7f32, type: 3}
       propertyPath: _showRoof
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1469965352952757228, guid: aa9294a946acc7e4eb7ef8ab7fbf7f32, type: 3}
       propertyPath: _wallSize

@@ -10,8 +10,7 @@ public class GenerateMaze : MonoBehaviour
     [SerializeField] private GameObject _groundPrefab;
     [SerializeField] private GameObject _roofPrefab;
     [SerializeField] private GameObject _verticalWallPrefab, _horizontalWallPrefab;
-    [SerializeField] private GameObject _player;
-    [SerializeField] private GameObject _npc;
+    [SerializeField] private GameObject _player, _npc, _item;
     [SerializeField] private bool _showRoof = true;
     private GameObject _wallParent, _floorParent, _roofParent;
     private NavMeshSurface _navMeshSurface;
@@ -28,8 +27,17 @@ public class GenerateMaze : MonoBehaviour
         DrawFloorAndRoof();
         SpawnPlayer();
         SpawnEnemies();
+        SpawnItems();
 
         _roofParent.SetActive(_showRoof);
+    }
+
+    private void SpawnItems()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            SpawnRandomLocation(_item, 1);
+        }
     }
 
     private void SpawnEnemies()
@@ -40,7 +48,7 @@ public class GenerateMaze : MonoBehaviour
         }
     }
 
-    private void SpawnRandomLocation(GameObject _prefab)
+    private void SpawnRandomLocation(GameObject _prefab, int offset = 2)
     {
         var go = Instantiate(_prefab);
 
@@ -49,7 +57,7 @@ public class GenerateMaze : MonoBehaviour
 
         var tile = _floor[x, z].transform.position;
 
-        go.transform.position = new Vector3(tile.x, tile.y + 2, tile.z);
+        go.transform.position = new Vector3(tile.x, tile.y + offset, tile.z);
     }
 
     private void SpawnPlayer()

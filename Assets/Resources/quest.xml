@@ -3,7 +3,7 @@
     <results>
       <result action="Talk to" target="Kevin" xp="5" type="4"/>
       <result action="Kill 5" target="Ghosts" xp="20" type="1"/>
-      <result action="Collect 5" target="Gold" xp="20" type="2"/>
+      <result action="Collect 10" target="Apples" xp="20" type="2"/>
     </results>
   </stage>
  
