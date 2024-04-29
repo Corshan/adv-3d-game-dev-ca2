@@ -1,9 +1,17 @@
 <quest name="Free the Villagers from the Tyran">
- <stage id="0" name="Maze" description="This is a training camp where you will get to master your skills before you start your quest.">
+ <stage id="0" name="Maze" description="">
     <results>
       <result action="Talk to" target="Kevin" xp="5" type="4"/>
       <result action="Kill 5" target="Ghosts" xp="20" type="1"/>
       <result action="Collect 10" target="Apples" xp="20" type="2"/>
+    </results>
+  </stage>
+
+  <stage id="1" name="DDA" description="">
+    <results>
+      <result action="Go to the" target="Barn" xp="10" type="3"/>
+      <result action="Collect 10" target="Iron" xp="15" type="2"/>
+      <result action="Talk to" target="Mary" xp="5" type="4"/>
     </results>
   </stage>
  

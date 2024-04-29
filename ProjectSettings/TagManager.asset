@@ -12,6 +12,9 @@ TagManager:
   - NPC
   - Collect
   - Item
+  - Bridge1
+  - Bridge2
+  - HealthPack
   layers:
   - Default
   - TransparentFX

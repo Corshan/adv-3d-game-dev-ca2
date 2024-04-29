@@ -20,7 +20,7 @@ public class QuestSystem : MonoBehaviour
 
         foreach (var q in _quests)
         {
-            // print($"{q.Action} {q.Target} {q.XP} {q.IsComplete} {q.Type}");
+            print($"{q.Action} {q.Target} {q.XP} {q.IsComplete} {q.Type}");
         }
     }
 
@@ -42,7 +42,14 @@ public class QuestSystem : MonoBehaviour
     {
         var npc = GameObject.Find($"{quest.Target}Temp");
 
-        if(npc == null) quest.CompleteQuest();
+        if (npc == null) quest.CompleteQuest();
+    }
+
+    private void GoTo(Quest quest)
+    {
+        var location = GameObject.Find($"{quest.Target}Temp");
+
+        if (location == null) quest.CompleteQuest();
     }
 
     private void Update()
@@ -61,7 +68,7 @@ public class QuestSystem : MonoBehaviour
                     TalkTo(quest);
                     break;
                 case Quest.QuestType.GO_TO:
-
+                    GoTo(quest);
                     break;
             }
         }
@@ -77,22 +84,23 @@ public class QuestSystem : MonoBehaviour
         {
             int stageID = int.Parse(stage.Attributes.GetNamedItem("id").Value);
 
-            if (stageID == _currentStageId) continue;
-
-            _stageTitle = stage.Attributes.GetNamedItem("name").Value;
-            _stageDescription = stage.Attributes.GetNamedItem("description").Value;
-
-            foreach (XmlNode results in stage)
+            if (stageID == _currentStageId)
             {
-                foreach (XmlNode result in results)
+                _stageTitle = stage.Attributes.GetNamedItem("name").Value;
+                _stageDescription = stage.Attributes.GetNamedItem("description").Value;
+
+                foreach (XmlNode results in stage)
                 {
-                    string action = result.Attributes.GetNamedItem("action").Value;
-                    string target = result.Attributes.GetNamedItem("target").Value;
-                    int xp = int.Parse(result.Attributes.GetNamedItem("xp").Value);
+                    foreach (XmlNode result in results)
+                    {
+                        string action = result.Attributes.GetNamedItem("action").Value;
+                        string target = result.Attributes.GetNamedItem("target").Value;
+                        int xp = int.Parse(result.Attributes.GetNamedItem("xp").Value);
 
-                    Quest.QuestType type = (Quest.QuestType)int.Parse(result.Attributes.GetNamedItem("type").Value);
+                        Quest.QuestType type = (Quest.QuestType)int.Parse(result.Attributes.GetNamedItem("type").Value);
 
-                    _quests.Add(new Quest(action, target, xp, type));
+                        _quests.Add(new Quest(action, target, xp, type));
+                    }
                 }
             }
         }
