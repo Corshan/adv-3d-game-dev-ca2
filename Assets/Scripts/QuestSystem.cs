@@ -4,12 +4,14 @@ using System.Linq;
 using System.Xml;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestSystem : MonoBehaviour
 {
     [SerializeField] private int _currentStageId;
     private List<Quest> _quests;
     public List<Quest> Quests => _quests;
+    public int nextLevel = 0;
     private string _stageTitle;
     private string _stageDescription;
 
@@ -54,8 +56,11 @@ public class QuestSystem : MonoBehaviour
 
     private void Update()
     {
+        int complete = 0;
         foreach (var quest in _quests)
         {
+            if (quest.IsComplete) complete++;
+
             switch (quest.Type)
             {
                 case Quest.QuestType.KILL:
@@ -72,6 +77,8 @@ public class QuestSystem : MonoBehaviour
                     break;
             }
         }
+
+        if(complete == _quests.Count) SceneManager.LoadScene(nextLevel);
     }
 
     private void LoadQuests()

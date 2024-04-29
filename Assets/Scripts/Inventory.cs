@@ -22,12 +22,23 @@ public class Inventory : MonoBehaviour
     {
         if (_item != null)
         {
+            bool canpick = true;
             _message.text = "Press E to pick up";
-            if (Input.GetKeyDown(KeyCode.E))
+
+            if (_inventory.ContainsKey(_item))
             {
-                if(_inventory.ContainsKey(_item)) _inventory[_item] += 1;
+                if (_inventory[_item] == _item.MaxAmount)
+                {
+                    _message.text = "Inventory Full";
+                    canpick = false;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canpick)
+            {
+                if (_inventory.ContainsKey(_item)) _inventory[_item] += 1;
                 else _inventory[_item] = 1;
-                
+
                 _item = null;
                 Destroy(_itemGameObject);
                 _itemGameObject = null;

@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentStageId: 0
+  nextLevel: 1
 --- !u!4 &322729320
 Transform:
   m_ObjectHideFlags: 0

@@ -5,16 +5,19 @@ using UnityEngine;
 public class SpawnItem : MonoBehaviour
 {
     public Item _item;
-    
+    public bool isQuestItem;
+
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(_item.Prefab, transform.position, Quaternion.identity, transform);
+        var go = Instantiate(_item.Prefab, transform.position, Quaternion.identity, transform);
+
+        go.tag = (isQuestItem) ? "Collect" : "Untagged";
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

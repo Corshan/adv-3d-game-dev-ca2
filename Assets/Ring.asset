@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1863f5bf02a628746ac47fc229056666, type: 3}
-  m_Name: Iron
+  m_Name: Ring
   m_EditorClassIdentifier: 
-  Name: Iron
+  Name: Ring
   Description: 
-  MaxAmount: 10
-  Price: 10
-  Sprite: {fileID: 21300000, guid: 3e4fcc84a0ac95b429c56452575f6021, type: 3}
-  Prefab: {fileID: 1409296757141969832, guid: 5d047c4e17c34dc4487ab2a7a1e7bb45, type: 3}
+  MaxAmount: 1
+  Price: 100
+  Sprite: {fileID: 21300000, guid: 970324311431c794ca338446ea889948, type: 3}
+  Prefab: {fileID: 5795393328047063409, guid: e0072e6fb918cb246b4e1c851def0a7d, type: 3}
